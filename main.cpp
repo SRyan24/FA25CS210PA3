@@ -117,9 +117,40 @@ void printPath(pair<int,int> exitcell,
 // STUDENTS IMPLEMENT DFS HERE
 // Add arguments, return type, and logic
 // ----------------------------------------------------------
-// bool dfs(……) {
-//     // Your code here
-// }
+
+bool dfs(int r, int c,
+         const vector<vector<int>>& maze,
+         vector<vector<bool>>& visited,
+         vector<vector<int>>& parent_r,
+         vector<vector<int>>& parent_c,
+         int exit_r, int exit_c) {
+
+
+    //Maze Size Variables:
+    int mazeN = (int)maze.size();
+    int mazeM = (int)maze[0].size();
+
+    //Out of Bounds Checks
+    if ( (r<0) || (c<0) || (r>=mazeN) || (c>=mazeM) ) {
+        return false;
+    }
+
+    //Wall Checks
+
+    //Visited Checks
+
+    //Mark Current Cell as Visited
+
+    //Check if(r,c) is exit
+
+    //Explore neighbors (use dr dc)
+
+    //Assign Parent before Recursing
+
+    //Returns True when exit found
+    return true;
+}
+
 
 
 // ----------------------------------------------------------
@@ -129,9 +160,9 @@ int main() {
     int N, M;
 
     cout << "Enter maze dimensions N M: ";
-    cin >> N >> M;
+    cin >> N >> M; // (x,-y) (reference)
 
-    vector<vector<int>> maze(N, vector<int>(M));
+    vector<vector<int>> maze(N, vector<int>(M)); // MAZE STORED IN, 0-Open 1-Closed
     generateMaze(maze, N, M);
 
     // Pick entrance and exit
@@ -142,8 +173,8 @@ int main() {
         exitcell = chooseBoundaryCell(maze);
     }
 
-    int ent_r = entrance.first;
-    int ent_c = entrance.second;
+    int ent_r = entrance.first;        // ENTRANCE
+    int ent_c = entrance.second;        // EXIT
     int exit_r = exitcell.first;
     int exit_c = exitcell.second;
 

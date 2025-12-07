@@ -125,7 +125,6 @@ bool dfs(int r, int c,
          vector<vector<int>>& parent_c,
          int exit_r, int exit_c) {
 
-
     //Maze Size Variables:
     int mazeN = (int)maze.size();
     int mazeM = (int)maze[0].size();
@@ -136,7 +135,7 @@ bool dfs(int r, int c,
     }
 
     //Wall Checks
-    if ((maze[r][c] ==1)) {
+    if ((maze[r][c] == 1)) {
         return false;
     }
 
@@ -157,6 +156,17 @@ bool dfs(int r, int c,
     for (int i = 0; i < 4; i++) {
         int nr = r + dr[i];
         int nc = c + dc[i];
+
+        // Validate Neighbors
+        if ( (nr < 0) || (nc < 0) || (nr >= mazeN) || nc >= mazeM  ) {
+            continue;
+        }
+        if (maze[nr][nc] == 1) {
+            continue;
+        }
+        if (visited[nr][nc]) {
+            continue;
+        }
 
         //Assign parent before recursion
         parent_r[nr][nc] = r;

@@ -136,23 +136,40 @@ bool dfs(int r, int c,
     }
 
     //Wall Checks
+    if ((maze[r][c] ==1)) {
+        return false;
+    }
 
     //Visited Checks
+    if (visited[r][c]) {
+        return false;
+    }
 
     //Mark Current Cell as Visited
+    visited[r][c] = true;
 
-    //Check if(r,c) is exit
+    //Check if(r,c) is exit (r/c exit)
+    if ( (r == exit_r) && (c == exit_c) ) {
+        return true;
+    }
 
-    //Explore neighbors (use dr dc)
+    //Explore neighbors (use dr dc), Up>Right>Down>Left
+    for (int i = 0; i < 4; i++) {
+        int nr = r + dr[i];
+        int nc = c + dc[i];
 
-    //Assign Parent before Recursing
+        //Assign parent before recursion
+        parent_r[nr][nc] = r;
+        parent_c[nr][nc] = c;
 
-    //Returns True when exit found
-    return true;
+        if ((dfs(nr, nc, maze, visited, parent_r, parent_c,exit_r, exit_c)) ) {
+            return true;
+        }
+
+    }
+    //Else no path found
+    return false;
 }
-
-
-
 // ----------------------------------------------------------
 // MAIN PROGRAM (students add DFS calls and logic)
 // ----------------------------------------------------------
@@ -190,17 +207,18 @@ int main() {
     // STUDENT WORK:
     // Call your DFS, track visited, and fill parent_r and parent_c
     // ------------------------------------------------------
-    // bool found = dfs(ent_r, ent_c, maze, visited, parent_r, parent_c, exit_r, exit_c);
+
+    bool found = dfs(ent_r, ent_c, maze, visited, parent_r, parent_c, exit_r, exit_c);
 
     // ------------------------------------------------------
     // STUDENT WORK:
     // If found, print the path
     // ------------------------------------------------------
-    // if (found) {
-    //     printPath(exitcell, parent_r, parent_c, ent_r, ent_c);
-    // } else {
-    //     cout << "\nNo path exists.\n";
-    // }
+    if (found) {
+        printPath(exitcell, parent_r, parent_c, ent_r, ent_c);
+    } else {
+        cout << "\nNo path exists.\n";
+    }
 
     return 0;
 }
